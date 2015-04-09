@@ -120,7 +120,17 @@ module.exports = function (grunt) {
     var dest = info.dest;
 
     // Request the url
-    var req = request(options);
+    var req = request.get(
+      {
+        url: options,
+        headers : {
+           "uid" : "rjvillan@us.ibm.com"
+        },
+        agentOptions: {
+            ca: fs.readFileSync('StephenLevy.pem'),
+            rejectUnauthorized: false
+        }
+      });
 
     // On error, callback
     req.on('error', cb);
